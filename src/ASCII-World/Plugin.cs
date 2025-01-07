@@ -24,7 +24,7 @@ public class Plugin : BepInEx.BaseUnityPlugin
     public static Shader test;
     public static Texture2D[] asciiTextures = new Texture2D[3];
     public static MaterialPropertyBlock asciiTexBlock;
-    public static FSprite asciiSprite = new FSprite("pixel") { scaleX = 1366f, scaleY = 768f};
+    public static FSprite asciiSprite;
 
     public void OnEnable()
     {
@@ -43,11 +43,12 @@ public class Plugin : BepInEx.BaseUnityPlugin
             throw new Exception("Exception from ASCIIWorld: " + e);
         }
     }
-
+    
     private void MenuOnctor(On.Menu.Menu.orig_ctor orig, Menu.Menu self, ProcessManager manager, ProcessManager.ProcessID id)
     {
         orig(self, manager, id);
         Logger.LogDebug("Haiiii");
+        asciiSprite = new FSprite("pixel") { scaleX = 1366f, scaleY = 768f };
         self.container.AddChild(asciiSprite);
         asciiSprite.SetPosition(0, 0);
         asciiSprite._isVisible = true;
@@ -56,30 +57,30 @@ public class Plugin : BepInEx.BaseUnityPlugin
     private void RainWorldOnOnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
     {
         orig(self);
-            Debug.LogWarning("loading ascii ermmm");
-            if (loaded) return;
-            loaded = true;
+        Debug.LogWarning("loading ascii ermmm");
+        if (loaded) return;
+        loaded = true;
 
-            MachineConnector.SetRegisteredOI("cactus.ascii", ASCIIOptions.Instance);
+        MachineConnector.SetRegisteredOI("cactus.ascii", ASCIIOptions.Instance);
             
-            var bundle = AssetBundle.LoadFromFile(AssetManager.ResolveFilePath("assets/asciiworld")); // Load asset bundle from assets folder
+        var bundle = AssetBundle.LoadFromFile(AssetManager.ResolveFilePath("assets/asciiworld")); // Load asset bundle from assets folder
 
-            asciiTexBlock = new();
+        asciiTexBlock = new();
             
-            // Ascii textures loading
-            asciiTextures[0] = bundle.LoadAsset<Texture2D>("Assets/ASCIIPROJECT/Textures/newASCII2.png");
-            ASCIIOptions.asciiTextures.Add(new ListItem("KarmaASCII"));
-            asciiTextures[1] = bundle.LoadAsset<Texture2D>("Assets/ASCIIPROJECT/Textures/1x0 8x8 3.png");
-            ASCIIOptions.asciiTextures.Add(new ListItem("AcerolaASCII"));
-            asciiTextures[2] = bundle.LoadAsset<Texture2D>("Assets/ASCIIPROJECT/Textures/hootisicons.png");
-            ASCIIOptions.asciiTextures.Add(new ListItem("HootisASCII"));
+        // Ascii textures loading
+        asciiTextures[0] = bundle.LoadAsset<Texture2D>("Assets/ASCIIPROJECT/Textures/newASCII2.png");
+        ASCIIOptions.asciiTextures.Add(new ListItem("KarmaASCII"));
+        asciiTextures[1] = bundle.LoadAsset<Texture2D>("Assets/ASCIIPROJECT/Textures/1x0 8x8 3.png");
+        ASCIIOptions.asciiTextures.Add(new ListItem("AcerolaASCII"));
+        asciiTextures[2] = bundle.LoadAsset<Texture2D>("Assets/ASCIIPROJECT/Textures/hootisicons.png");
+        ASCIIOptions.asciiTextures.Add(new ListItem("HootisASCII"));
             
-            // Shaders
-            ASCIIShader = bundle.LoadAsset<Shader>("Assets/ASCIIPROJECT/ASCII.shader"); // Loads shader from asset bundle.
-            ASCIIStencil = bundle.LoadAsset<Shader>("Assets/ASCIIPROJECT/BasicStencil.shader");
-            test = bundle.LoadAsset<Shader>("Assets/shaders 1.9.03/TestShader.shader");
+        // Shaders
+        ASCIIShader = bundle.LoadAsset<Shader>("Assets/ASCIIPROJECT/ASCII.shader"); // Loads shader from asset bundle.
+        ASCIIStencil = bundle.LoadAsset<Shader>("Assets/ASCIIPROJECT/BasicStencil.shader");
+        test = bundle.LoadAsset<Shader>("Assets/shaders 1.9.03/TestShader.shader");
 
-            asciiSprite.shader = self.Shaders["Hologram"]; //FShader.CreateShader("test", test);
+        asciiSprite.shader = self.Shaders["Hologram"]; //FShader.CreateShader("test", test);
     }
     
     private void RainWorldOnUpdate(On.RainWorld.orig_Update orig, RainWorld self)
