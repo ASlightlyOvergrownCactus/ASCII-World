@@ -4,7 +4,7 @@
 	"version": "1.0",
 	"hide_version": false,
 	"authors": "Cactus",
-	"description": "Adds an ASCII Shader to the game, with multiple character sets available!\nThere are options in remix settings for character set, lum offset, contrast, and bloom amount and kernel size.\nThis was inspired by Acerola's project! Go check it out: https://github.com/GarrettGunnell/Post-Processing/tree/main/Assets/ASCII \nMisaki Gothic Font: https://littlelimit.net/misaki.htm \nVileR Fonts from int10 collection: https://int10h.org/ \nThumbnail by the amazing modder AprilIsTheWorstMonth!",
+	"description": "Adds an ASCII Shader to the game, with multiple character sets available!\nThere are options in remix settings for character set, lum offset, contrast, and bloom amount and kernel size.\nThis was inspired by Acerola's project! Go check it out: https://github.com/GarrettGunnell/Post-Processing/tree/main/Assets/ASCII \nMisaki Gothic Font: https://littlelimit.net/misaki.htm \nVileR Fonts from int10 collection: https://int10h.org/ \nThumbnail by the amazing modder AprilIsTheWorstMonth!\nGithub is here: https://github.com/ASlightlyOvergrownCactus/ASCII-World",
 	"requirements": [],
 	"requirements_names": [],
 	"checksum_override_version": false,
